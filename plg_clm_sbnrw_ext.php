@@ -70,18 +70,18 @@ class plgContentPlg_clm_sbnrw_ext extends JPlugin {
 		$number = 0;
 		$in = "";
 		$before = strpos($zeile, '[' . $tag);
-		if ($before == null) {
+		if ($before === false) {
 			return $zeile;
 		}
 		$tag_length = strlen($tag);
 		$stop = false;
 		do {
-			$next = strpos($zeile, '[' . $tag, $before + $tag + 2);
-			if ($next == null) {
+			$next = strpos($zeile, '[' . $tag, $before + $tag_length + 2);
+			if ($next === false) {
 				$stop = true;
 			}
-			$after = strpos($zeile, ']', $before + $tag + 2);
-			if ($after != null && ($stop || $after < $next)) {
+			$after = strpos($zeile, ']', $before + $tag_length + 2);
+			if ($after !== false && ($stop || $after < $next)) {
 				$my_config = substr($zeile, ($before + $tag_length + 2), $after - ($before + $tag_length + 2));
 				$first = substr($zeile, 0, $before);
 				$config_char = $zeile[$before + $tag_length + 1];
